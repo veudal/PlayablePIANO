@@ -2,15 +2,11 @@ const pianoKeys = document.querySelectorAll(".piano-keys .key"),
 volumeSlider = document.querySelector(".volume-slider input"),
 keysCheckbox = document.querySelector(".keys-checkbox input");
 
-
-let allKeys = [],
-audio = new Audio("tunes/a.wav");           //BY DEFAULT AUDIO SRC IS A TONE
-
-
-
+let allKeys = []
 
 const playTune = (key) => {
-    audio.src = `tunes/${key}.wav`;         // PADDING AUDIO SRC BASED ON PASSED KEY
+    const audio = new Audio();
+    audio.src = `tunes/${key}.wav`; // PADDING AUDIO SRC BASED ON PASSED KEY
     audio.play();
 
     const clickedKey = document.querySelector(`[data-key="${key}"]`);
@@ -21,11 +17,6 @@ const playTune = (key) => {
     }, 150);
 }
 
-
-
-
-
-
 pianoKeys.forEach(key => {
 
     allKeys.push(key.dataset.key);
@@ -35,21 +26,17 @@ pianoKeys.forEach(key => {
 
 });
 
-
 const showHideKeys = () => {
     pianoKeys.forEach(key => key.classList.toggle("hide"))
 }
-
 
 const handleVolume = (e) => {
     audio.volume = e.target.value;
 }
 
-
 const pressedKey = (e) => {
     if(allKeys.includes(e.key)) playTune(e.key);
 }
-
 
 keysCheckbox.addEventListener("click", showHideKeys);
 volumeSlider.addEventListener("input", handleVolume);
